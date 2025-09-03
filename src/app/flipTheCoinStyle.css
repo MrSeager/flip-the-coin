@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Kanit:400,600,700&display=swap');
+
+body {
+    font-family: 'Kanit', sans-serif !important;
+    background-color: #404A65 !important;
+}
+
+/*Font*/
+.cs-fc-main {
+    color: #ECEDF0 !important;
+}
+
+.cs-text-shadow {
+  text-shadow:
+    -5px -5px 0 #35383F,
+     5px -5px 0 #35383F,
+    -5px  5px 0 #35383F,
+     5px  5px 0 #35383F,
+    0px  -5px 0 #35383F,
+    0px   5px 0 #35383F,
+    -5px  0px 0 #35383F,
+     5px  0px 0 #35383F;
+}
+
+.cs-btn {
+    background-color: #1F6FB0 !important;
+    border-color: #19588c !important;
+}
