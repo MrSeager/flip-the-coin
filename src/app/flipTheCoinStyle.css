@@ -25,4 +25,9 @@ body {
 .cs-btn {
     background-color: #1F6FB0 !important;
     border-color: #19588c !important;
+    transition: .5s !important;
+}
+
+.cs-btn:hover {
+    scale: 1.05 !important;
 }

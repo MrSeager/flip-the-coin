@@ -1,11 +1,8 @@
-import Image from 'next/image';
 //Components
 import CoinFlip from './CoinFlip';
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Button } from 'react-bootstrap';
-//Spring
-import { useSpring, animated } from '@react-spring/web';
+import { Container } from 'react-bootstrap';
 
 export const generateMetadata = () => {
   return {
@@ -27,5 +24,11 @@ export const generateMetadata = () => {
 };
 
 export default function Home() {
-  return <CoinFlip />;
+  return (
+    <Container className="user-select-none cs-fc-main text-center py-lg-0 py-5 min-vh-100 d-flex flex-column align-items-center justify-content-center gap-3">
+      <h1 className="m-0 display-1 fw-bold cs-text-shadow">Flip the coin</h1>
+      <h2 className='m-0'>Press the coin or the button to flip the coin</h2>
+      <CoinFlip />
+    </Container>
+  ); 
 }

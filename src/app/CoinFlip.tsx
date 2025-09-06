@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 //Components
 import './flipTheCoinStyle.css';
@@ -14,6 +14,7 @@ export default function CoinFlip() {
     const [side, setSide] = useState<'heads' | 'tails'>('heads');
     const [isFlipping, setIsFlipping] = useState<boolean>(false);
     const [hover, setHover] = useState<boolean>(false);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const hoverAnim = useHover(hover, 1.05);
 
@@ -29,6 +30,11 @@ export default function CoinFlip() {
     });
 
     const handleFlip = () => {
+        if (audioRef.current) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+        }
+
         if (isFlipping) return;
         setIsFlipping(true);
 
@@ -50,47 +56,47 @@ export default function CoinFlip() {
     };
 
     return (
-        <Container className="cs-fc-main text-center py-5 min-vh-100 d-flex flex-column align-items-center justify-content-center gap-3">
-        <h1 className="display-1 fw-bold cs-text-shadow">Flip the coin</h1>
-        <h2>Press the coin or the button to flip the coin</h2>
-        <animated.div
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            style={{
-                ...hoverAnim,
-                cursor: 'pointer',
-                transform: rotate.to(r => `rotateY(${r}deg)`),
-            }}
-            onClick={handleFlip}
-        >
-            <Image 
-            src={coinImage} 
-            alt="coin" 
-            width={150}
-            height={150} 
-            priority 
-            />
-        </animated.div>
-        
-        <animated.div style={hoverAnim}>
-            <Image  
-                src='https://raw.githubusercontent.com/MrSeager/flip-the-coin/refs/heads/main/src/resources/shadow.svg' 
-                alt="shadow" 
-                className="mt-5" 
-                width={150}
-                height={20}
-                priority
-            />
-        </animated.div>
-        <h3 className='text-capitalize'>{side}</h3>
-        <Button
-            onClick={handleFlip}
-            disabled={isFlipping}
-            type="button" 
-            className="cs-btn px-4 py-2 fw-bold border-3 border-top-0 border-start-0 border-end-0 text-uppercase"
-        >
-            Random
-        </Button>
+        <Container className='mt-5 d-flex flex-column gap-4 align-items-center'>
+            <audio ref={audioRef} src='/coin-flip.mp3' preload='auto' />
+            
+            <animated.div
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                style={{
+                    ...hoverAnim,
+                    cursor: 'pointer',
+                    transform: rotate.to(r => `rotateY(${r}deg)`),
+                }}
+                onClick={handleFlip}
+            >
+                <Image 
+                src={coinImage} 
+                alt="coin" 
+                width={175}
+                height={175} 
+                priority 
+                />
+            </animated.div>
+            
+            <animated.div style={hoverAnim}>
+                <Image  
+                    src='https://raw.githubusercontent.com/MrSeager/flip-the-coin/refs/heads/main/src/resources/shadow.svg' 
+                    alt="shadow" 
+                    className="mt-3" 
+                    width={130}
+                    height={20}
+                    priority
+                />
+            </animated.div>
+            <h3 className='text-capitalize'>{side}</h3>
+            <Button
+                onClick={handleFlip}
+                disabled={isFlipping}
+                type="button" 
+                className="cs-btn px-4 py-2 fw-bold border-3 border-top-0 border-start-0 border-end-0 text-uppercase"
+            >
+                Random
+            </Button>
         </Container>
     );
 }
